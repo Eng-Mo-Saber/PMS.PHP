@@ -20,11 +20,11 @@
             ?>
             <form action="handelar/handelLogin.php" method="POST" class="border p-3">
                 <div class="from group p-2 my-1">
-                    <<label for="email">Email</label>
+                    <label for="email">Email</label>
                         <input type="email" name="email" class="from control" id="email">
                 </div>
                 <div class="from group p-2 my-1">
-                    <<label for="password">Password</label>
+                    <label for="password">Password</label>
                         <input type="password" name="password" class="from control" id="password">
                 </div>
                 <div class="from group p-2 my-1">

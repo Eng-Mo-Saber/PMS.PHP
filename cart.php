@@ -18,17 +18,20 @@
                             <th scope="col">Delete</th>
                         </tr>
                     </thead>
+                    <?php if (isset($_SESSION['success'])) {
+                        echo $_SESSION['success'];
+                    } ?>
                     <?php
-                    $totalSalary =0 ;
-                    $quantity = $_SESSION['quantity'];
-                    $idc = $_SESSION['idc'];
+                    $cunt_cart = 0;
+                    $totalSalary = 0;
+                    // $quantity = $_SESSION['quantity'];
                     $file = fopen("data/filecart.csv", 'r');
                     while ($row = fgets($file)) {
                         $res = explode(',', $row);
                         $id = $res[0];
                         $name = $res[1];
                         $salary = $res[2];
-
+                        $cunt_cart += 1;
                     ?>
                         <tbody>
                             <tr>
@@ -46,26 +49,25 @@
                                     unset($_SESSION['errors']);
                                 endif;
                                 ?>
-                                <form action="handelar/handelCheck.php" method="POST">
-                                    <td>
-                                        <input type="number" value="<?php echo $quantity ?>" name="quantity">
-                                        <button name="check">check</button>
-                                    </td>
-
-                                </form>
-                                <td><?php echo '$'. $salary * $quantity ;
-                                            $totalSalary +=  $salary * $quantity ;     ?></td>
                                 <td>
-                                    <a href="#" class="btn btn-danger">Delete</a>
+                                    <input type="number" value="<?php echo 1 ?>" name="quantity">
+                                </td>
+                                <td><?php echo '$' . $salary * 1;
+                                    $_SESSION['totalSalary'] = $totalSalary +=  $salary * 1;     ?></td>
+                                <td>
+                                    <a href="handelar/handelDelete.php?id=<?php echo $id; ?>" class="btn btn-danger">Delete</a>
                                 </td>
                             </tr>
                             <tr>
-                            <?php } ?>
+                            <?php  }
+                        $_SESSION['cunt_cart'] = $cunt_cart;
+                        fclose($file);
+                            ?>
                             <td colspan="2">
                                 Total Price
                             </td>
                             <td colspan="3">
-                                <h3><?php echo '$'.$totalSalary ;  ?></h3>
+                                <h3><?php echo '$' . $totalSalary;  ?></h3>
                             </td>
                             <td>
                                 <a href="checkout.php" class="btn btn-primary">Checkout</a>
